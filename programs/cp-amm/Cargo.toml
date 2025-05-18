@@ -19,8 +19,8 @@ idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
 devnet = []
 
 [dependencies]
-anchor-lang = { workspace = true, features = ["event-cpi"] }
-anchor-spl = { workspace = true, features = [] }
+anchor-lang = {git = "https://github.com/solana-foundation/anchor.git", branch = "master", features = ["event-cpi"]}
+anchor-spl = {git = "https://github.com/solana-foundation/anchor.git", branch = "master"}
 bytemuck = { version = "1.20.0", features = ["derive", "min_const_generics"] }
 static_assertions = "1.1.0"
 ruint = "1.3.0"

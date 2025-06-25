@@ -23,7 +23,6 @@ macro_rules! checked_impl {
                     Some(result) => Ok(result),
                     None => {
                         let caller = Location::caller();
-                        msg!("Math error thrown at {}:{}", caller.file(), caller.line());
                         Err(PoolError::MathOverflow)
                     }
                 }
@@ -35,7 +34,6 @@ macro_rules! checked_impl {
                     Some(result) => Ok(result),
                     None => {
                         let caller = Location::caller();
-                        msg!("Math error thrown at {}:{}", caller.file(), caller.line());
                         Err(PoolError::MathOverflow)
                     }
                 }
@@ -47,7 +45,6 @@ macro_rules! checked_impl {
                     Some(result) => Ok(result),
                     None => {
                         let caller = Location::caller();
-                        msg!("Math error thrown at {}:{}", caller.file(), caller.line());
                         Err(PoolError::MathOverflow)
                     }
                 }
@@ -59,7 +56,6 @@ macro_rules! checked_impl {
                     Some(result) => Ok(result),
                     None => {
                         let caller = Location::caller();
-                        msg!("Math error thrown at {}:{}", caller.file(), caller.line());
                         Err(PoolError::MathOverflow)
                     }
                 }
@@ -71,7 +67,6 @@ macro_rules! checked_impl {
                     Some(result) => Ok(result),
                     None => {
                         let caller = Location::caller();
-                        msg!("Math error thrown at {}:{}", caller.file(), caller.line());
                         Err(PoolError::MathOverflow)
                     }
                 }
@@ -83,7 +78,6 @@ macro_rules! checked_impl {
                     Some(result) => Ok(result),
                     None => {
                         let caller = Location::caller();
-                        msg!("Math error thrown at {}:{}", caller.file(), caller.line());
                         Err(PoolError::MathOverflow)
                     }
                 }
@@ -95,7 +89,6 @@ macro_rules! checked_impl {
                     Some(result) => Ok(result),
                     None => {
                         let caller = Location::caller();
-                        msg!("Math error thrown at {}:{}", caller.file(), caller.line());
                         Err(PoolError::MathOverflow)
                     }
                 }

@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 
 #[cfg(not(feature = "devnet"))]
 pub mod admin {
-    use anchor_lang::{prelude::Pubkey, solana_program::pubkey};
+    use anchor_lang::{prelude::Pubkey, solana_program::pubkey::pubkey};
 
     pub const ADMINS: [Pubkey; 2] = [
         pubkey!("5unTfT2kssBuNvHPY6LbJfJpLqEcdMxGYLWHwShaeTLi"),
@@ -12,7 +12,7 @@ pub mod admin {
 
 #[cfg(feature = "devnet")]
 pub mod admin {
-    use anchor_lang::{prelude::Pubkey, solana_program::pubkey};
+    use anchor_lang::{prelude::Pubkey, solana_program::pubkey::pubkey};
 
     pub const ADMINS: [Pubkey; 3] = [
         pubkey!("5unTfT2kssBuNvHPY6LbJfJpLqEcdMxGYLWHwShaeTLi"),

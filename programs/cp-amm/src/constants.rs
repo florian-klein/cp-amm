@@ -123,11 +123,12 @@ pub mod seeds {
 }
 
 pub mod treasury {
-    use anchor_lang::{prelude::Pubkey, solana_program::pubkey};
+    use anchor_lang::{prelude::Pubkey, solana_program::pubkey::pubkey};
     // https://app.squads.so/squads/4EWqcx3aNZmMetCnxwLYwyNjan6XLGp3Ca2W316vrSjv/treasury
     pub const ID: Pubkey = pubkey!("4EWqcx3aNZmMetCnxwLYwyNjan6XLGp3Ca2W316vrSjv");
 }
 
+use anchor_lang::solana_program::pubkey::pubkey;
 // Supported quote mints
 const SOL: Pubkey = pubkey!("So11111111111111111111111111111111111111112");
 const USDC: Pubkey = pubkey!("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");

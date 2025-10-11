@@ -15,10 +15,10 @@ use anchor_lang::solana_program::sysvar;
 use anchor_lang::{
     prelude::*,
     solana_program::instruction::{
-        get_processed_sibling_instruction, get_stack_height, Instruction,
+        get_stack_height, Instruction,
     },
 };
-use anchor_spl::token_interface::{Mint, TokenAccount, TokenInterface};
+use anchor_spl::{associated_token::spl_associated_token_account::solana_program::instruction::get_processed_sibling_instruction, token_interface::{Mint, TokenAccount, TokenInterface}};
 use num_enum::{FromPrimitive, IntoPrimitive};
 
 #[repr(u8)]

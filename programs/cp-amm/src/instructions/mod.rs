@@ -1,7 +1,7 @@
 pub mod admin;
 pub use admin::*;
-pub mod ix_swap;
-pub use ix_swap::*;
+pub mod swap;
+pub use swap::*;
 pub mod ix_add_liquidity;
 pub use ix_add_liquidity::*;
 pub mod ix_create_position;
@@ -30,3 +30,6 @@ pub mod ix_close_position;
 pub use ix_close_position::*;
 pub mod ix_split_position;
 pub use ix_split_position::*;
+
+pub mod ix_split_position2;
+pub use ix_split_position2::*;

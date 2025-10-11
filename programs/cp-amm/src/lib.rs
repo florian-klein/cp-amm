@@ -1,5 +1,5 @@
 #![allow(unexpected_cfgs)]
-
+#![allow(deprecated)]
 use anchor_lang::prelude::*;
 
 #[macro_use]
@@ -16,6 +16,7 @@ pub mod event;
 pub use event::*;
 pub mod utils;
 pub use utils::*;
+pub mod base_fee;
 pub mod math;
 pub use math::*;
 pub mod curve;
@@ -197,7 +198,18 @@ pub mod cp_amm {
     }
 
     pub fn swap(ctx: Context<SwapCtx>, params: SwapParameters) -> Result<()> {
-        instructions::handle_swap(ctx, params)
+        instructions::swap::handle_swap_wrapper(
+            &ctx,
+            SwapParameters2 {
+                amount_0: params.amount_in,
+                amount_1: params.minimum_amount_out,
+                swap_mode: SwapMode::ExactIn.into(),
+            },
+        )
+    }
+
+    pub fn swap2(ctx: Context<SwapCtx>, params: SwapParameters2) -> Result<()> {
+        instructions::swap::handle_swap_wrapper(&ctx, params)
     }
 
     pub fn claim_position_fee(ctx: Context<ClaimPositionFeeCtx>) -> Result<()> {
@@ -233,6 +245,20 @@ pub mod cp_amm {
         ctx: Context<SplitPositionCtx>,
         params: SplitPositionParameters,
     ) -> Result<()> {
-        instructions::handle_split_position(ctx, params)
+        instructions::handle_split_position2(ctx, params.get_split_position_parameters2()?)
+    }
+
+    pub fn split_position2(ctx: Context<SplitPositionCtx>, numerator: u32) -> Result<()> {
+        instructions::handle_split_position2(
+            ctx,
+            SplitPositionParameters2 {
+                unlocked_liquidity_numerator: numerator,
+                permanent_locked_liquidity_numerator: numerator,
+                fee_a_numerator: numerator,
+                fee_b_numerator: numerator,
+                reward_0_numerator: numerator,
+                reward_1_numerator: numerator,
+            },
+        )
     }
 }

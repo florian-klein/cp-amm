@@ -1,24 +1,17 @@
 use crate::{
     activation_handler::ActivationHandler,
     const_pda, get_pool_access_validator,
-    instruction::Swap as SwapInstruction,
-    instruction::Swap2 as Swap2Instruction,
     params::swap::TradeDirection,
     process_swap_exact_in, process_swap_exact_out, process_swap_partial_fill,
-    safe_math::SafeMath,
     state::{fee::FeeMode, Pool, SwapResult2},
     swap::{ProcessSwapParams, ProcessSwapResult},
     token::{transfer_from_pool, transfer_from_user},
     EvtSwap, EvtSwap2, PoolError,
 };
-use anchor_lang::solana_program::sysvar;
-use anchor_lang::{
-    prelude::*,
-    solana_program::instruction::{
-        get_stack_height, Instruction,
-    },
-};
-use anchor_spl::{associated_token::spl_associated_token_account::solana_program::instruction::get_processed_sibling_instruction, token_interface::{Mint, TokenAccount, TokenInterface}};
+use anchor_lang::
+    prelude::*
+;
+use anchor_spl::{token_interface::{Mint, TokenAccount, TokenInterface}};
 use num_enum::{FromPrimitive, IntoPrimitive};
 
 #[repr(u8)]
@@ -283,75 +276,10 @@ pub fn handle_swap_wrapper(ctx: &Context<SwapCtx>, params: SwapParameters2) -> R
 }
 
 pub fn validate_single_swap_instruction<'c, 'info>(
-    pool: &Pubkey,
-    remaining_accounts: &'c [AccountInfo<'info>],
+    _pool: &Pubkey,
+    _remaining_accounts: &'c [AccountInfo<'info>],
 ) -> Result<()> {
-    let instruction_sysvar_account_info = remaining_accounts
-        .get(0)
-        .ok_or_else(|| PoolError::FailToValidateSingleSwapInstruction)?;
-
-    // get current index of instruction
-    let current_index =
-        sysvar::instructions::load_current_index_checked(instruction_sysvar_account_info)?;
-    let current_instruction = sysvar::instructions::load_instruction_at_checked(
-        current_index.into(),
-        instruction_sysvar_account_info,
-    )?;
-
-    if current_instruction.program_id != crate::ID {
-        // check if current instruction is CPI
-        // disable any stack height greater than 2
-        if get_stack_height() > 2 {
-            return Err(PoolError::FailToValidateSingleSwapInstruction.into());
-        }
-        // check for any sibling instruction
-        let mut sibling_index = 0;
-        while let Some(sibling_instruction) = get_processed_sibling_instruction(sibling_index) {
-            if sibling_instruction.program_id == crate::ID {
-                require!(
-                    !is_instruction_include_pool_swap(&sibling_instruction, pool),
-                    PoolError::FailToValidateSingleSwapInstruction
-                );
-            }
-            sibling_index = sibling_index.safe_add(1)?;
-        }
-    }
-
-    if current_index == 0 {
-        // skip for first instruction
-        return Ok(());
-    }
-    for i in 0..current_index {
-        let instruction = sysvar::instructions::load_instruction_at_checked(
-            i.into(),
-            instruction_sysvar_account_info,
-        )?;
-
-        if instruction.program_id != crate::ID {
-            // we treat any instruction including that pool address is other swap ix
-            for i in 0..instruction.accounts.len() {
-                if instruction.accounts[i].pubkey.eq(pool) {
-                    msg!("Multiple swaps not allowed");
-                    return Err(PoolError::FailToValidateSingleSwapInstruction.into());
-                }
-            }
-        } else {
-            require!(
-                !is_instruction_include_pool_swap(&instruction, pool),
-                PoolError::FailToValidateSingleSwapInstruction
-            );
-        }
-    }
 
     Ok(())
 }
 
-fn is_instruction_include_pool_swap(instruction: &Instruction, pool: &Pubkey) -> bool {
-    let instruction_discriminator = &instruction.data[..8];
-    if instruction_discriminator.eq(SwapInstruction::DISCRIMINATOR)
-        || instruction_discriminator.eq(Swap2Instruction::DISCRIMINATOR)
-    {
-        return instruction.accounts[1].pubkey.eq(pool);
-    }
-    false
-}

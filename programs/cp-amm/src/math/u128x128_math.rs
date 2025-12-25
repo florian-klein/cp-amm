@@ -1,4 +1,4 @@
-use ruint::aliases::{U256, U512};
+use alloy_primitives::{U256, U512};
 
 /// Round up, down
 #[derive(PartialEq, Clone, Copy)]

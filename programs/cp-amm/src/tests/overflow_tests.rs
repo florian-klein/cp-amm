@@ -1,7 +1,7 @@
 use std::u128;
 
 use proptest::proptest;
-use ruint::aliases::U256;
+use alloy_primitives::U256;
 
 use crate::{
     constants::{MAX_SQRT_PRICE, MIN_SQRT_PRICE},

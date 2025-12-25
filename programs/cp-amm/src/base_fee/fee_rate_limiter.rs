@@ -18,7 +18,7 @@ use crate::{
 use super::BaseFeeHandler;
 use anchor_lang::prelude::*;
 use num::Integer;
-use ruint::aliases::U256;
+use alloy_primitives::U256;
 
 /// we denote reference_amount = x0, cliff_fee_numerator = c, fee_increment = i
 /// if input_amount <= x0, then fee = input_amount * c

@@ -1,5 +1,6 @@
 
 .anchor
+.claude
 .DS_Store
 target
 **/*.rs.bk

@@ -1,6 +1,6 @@
 use anyhow::{ensure, Ok, Result};
 use cp_amm::{safe_math::SafeMath, utils_math::sqrt_u256};
-use ruint::aliases::U256;
+use alloy_primitives::U256;
 
 // a = L * (1/s - 1/pb)
 // b = L * (s - pa)

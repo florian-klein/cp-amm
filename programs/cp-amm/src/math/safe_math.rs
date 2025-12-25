@@ -1,5 +1,5 @@
 use anchor_lang::solana_program::msg;
-use ruint::aliases::{U256, U512};
+use alloy_primitives::{U256, U512};
 use std::panic::Location;
 
 use crate::PoolError;

@@ -1,4 +1,4 @@
-use ruint::aliases::U256;
+use alloy_primitives::U256;
 use static_assertions::const_assert_eq;
 use std::cmp::min;
 

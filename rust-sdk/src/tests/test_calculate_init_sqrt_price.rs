@@ -5,7 +5,7 @@ use cp_amm::{
     math::safe_math::SafeMath,
     state::{ModifyLiquidityResult, Pool},
 };
-use ruint::aliases::{U256, U512};
+use alloy_primitives::{U256, U512};
 
 use crate::calculate_init_sqrt_price::calculate_init_price;
 use anyhow::{Ok, Result};

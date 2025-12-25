@@ -1,6 +1,6 @@
 use anchor_lang::prelude::Result;
 use num_traits::cast::FromPrimitive;
-use ruint::aliases::U256;
+use alloy_primitives::U256;
 
 use crate::{
     safe_math::SafeMath,

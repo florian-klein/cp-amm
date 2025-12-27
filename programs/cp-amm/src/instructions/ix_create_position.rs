@@ -136,12 +136,13 @@ pub fn create_position_nft<'info>(
         mint_authority: pool_authority.clone(),
         update_authority: pool_authority.clone(),
     };
-    let cpi_ctx = CpiContext::new_with_signer(token_program.key(), cpi_accounts, signer_seeds);
+    let cpi_ctx =
+        CpiContext::new_with_signer(token_program.to_account_info(), cpi_accounts, signer_seeds);
     token_metadata_initialize(
         cpi_ctx,
         String::from("Meteora Position NFT"), // TODO do we need to allow user to input custom name?
         String::from("MPN"),
-        String::from("https://raw.githubusercontent.com/MeteoraAg/token-metadata/main/meteora_position_nft.png"), // TODO update image
+        String::from("https://raw.githubusercontent.com/MeteoraAg/token-metadata/main/meteora_position_nft.png"), 
     )?;
 
     // transfer minimum rent to mint account
@@ -154,7 +155,7 @@ pub fn create_position_nft<'info>(
     // Mint the NFT
     token_2022::mint_to(
         CpiContext::new_with_signer(
-            token_program.key(),
+            token_program.to_account_info(),
             token_2022::MintTo {
                 mint: position_nft_mint.clone(),
                 to: position_nft_account.clone(),

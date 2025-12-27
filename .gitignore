@@ -9,3 +9,4 @@ test-ledger
 .yarn
 proptest-regressions
 commands
+deploy.sh

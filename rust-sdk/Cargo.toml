@@ -7,8 +7,8 @@ authors = ["minh <minh@raccoons.dev>"]
 
 [dependencies]
 anyhow = "1.0.71"
-cp-amm = { path = "../programs/cp-amm" }
 alloy-primitives = "0.8"
+cp-amm = { path = "../programs/cp-amm", features=["no-entrypoint", "no-custom-entrypoint"] }
 
 [dev-dependencies]
 bytemuck = { workspace = true}
